@@ -1,49 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:tuneplayer/models/tune_model.dart';
+import 'package:tuneplayer/widgets/tune_item.dart';
 
 class TuneScreen extends StatelessWidget {
   TuneScreen({Key? key}) : super(key: key);
 
-  List<Color> colors = [
-    Color(0xffF44336),
-    Color(0xffF89800),
-    Color(0xffFEEB3B),
-    Color(0xff4CAF50),
-    Color(0xff2F9688),
-    Color(0xff2896F3),
-    Color(0xff9C27B0),
-  ];
-
-  List<String> sounds = [
-    'note1.wav',
-    'note2.wav',
-    'note3.wav',
-    'note4.wav',
-    'note5.wav',
-    'note6.wav',
-    'note7.wav',
+  List<TuneModel> Tune = [
+    TuneModel(color: Colors.red, sound: 'note1.wav'),
+    TuneModel(color: Colors.orange, sound: 'note2.wav'),
+    TuneModel(color: Colors.yellow, sound: 'note3.wav'),
+    TuneModel(color: Colors.green, sound: 'note4.wav'),
+    TuneModel(color: Colors.teal, sound: 'note5.wav'),
+    TuneModel(color: Colors.blue, sound: 'note6.wav'),
+    TuneModel(color: Colors.purple, sound: 'note7.wav'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Flutter Tune',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0Xff253238),
+      ),
       body: Column(
-        children: [
-          for (int i = 0; i < 7; i++)
-            GestureDetector(
-               onTap: (){
-                final player = AudioPlayer();
-                player.play(AssetSource(sounds[i]));
-                
-              },
-            
-              child: Container(
-                height: 117.2,
-                color: colors[i],
-              ),
-            ),
-             
-        ],
+        children: Tune.map((e) => TuneItem(tune: e)).toList(),
       ),
     );
   }
